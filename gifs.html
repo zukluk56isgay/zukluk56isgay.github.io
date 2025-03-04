@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Homepage</title>
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    /* Remove or comment out the padding-top if you had it before */
+    /* body { padding-top: 64px; } */
+  </style>
+</head>
+<body>  <nav class="blue">
+    <div class="nav-wrapper container">
+      <a href="index.html" class="brand-logo">joe</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="index.html">house</a></li>
+        <li class="active"><a href="gifs.html">jifs</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <h1>GIF Browser</h1>
+    <div class="row" id="gif-gallery">
+      <!-- GIF cards will be injected here -->
+    </div>
+  </div>
+  
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Custom JS to load GIFs -->
+  <script>
+    // Fetch the JSON file that lists available GIF filenames.
+    fetch('gifs.json')
+      .then(response => response.json())
+      .then(data => {
+        const gallery = document.getElementById('gif-gallery');
+        data.forEach(gif => {
+          const col = document.createElement('div');
+          col.className = "col s12 m4 gif-item";
+          col.innerHTML = `
+            <div class="card">
+              <div class="card-image">
+                <img src="gifs/${gif}" alt="${gif}">
+              </div>
+              <div class="card-content">
+                <p>${gif}</p>
+              </div>
+            </div>
+          `;
+          gallery.appendChild(col);
+        });
+      })
+      .catch(error => console.error('Error loading GIFs:', error));
+  </script>
+</body>
+</html>
